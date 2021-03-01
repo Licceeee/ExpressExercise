@@ -1,0 +1,71 @@
+<%- include('../partials/head'); %>
+
+    <h1 class="p-5">
+        <a href="/" class="btn btn-outline-dark">Home</a>
+        <%= title %>
+
+    </h1>
+
+    <div class="row m-0 py-3">
+
+        <div class="col-4">
+            <a href="/api/v1/countries?sort=true" class="btn btn-dark">All</a>
+        </div>
+        <div class="col-4">
+            <a href="/api/v1/countries?sort=true&visited=true" class="btn btn-dark">Visited</a>
+        </div>
+        <div class="col-4">
+            <a href="/api/v1/countries?sort=true&visited=false" class="btn btn-dark">To visit</a>
+        </div>
+    </div>
+
+    <form action="/api/v1/countries" class="row g-3 my-3" method="post">
+        <div class="col-auto">
+            <input type="text" class="form-control" name="name" id="name" placeholder="Country">
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" name="alpha2Code" id="alpha2Code" placeholder="alpha2Code">
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" name="alpha3Code" id="alpha3Code" placeholder="alpha3Code">
+        </div>
+        <div class="col-auto bootstrap-switch-square">
+            <label>Visited: </label>
+            <input type="checkbox" data-toggle="switch" name="visited" id="visited" value="true" checked/>
+        </div>
+
+
+        <div class="col-6 mt-4">
+            <button type="submit" class="btn btn-dark mb-3">Add country</button>
+        </div>
+
+    </form>
+
+    <div class="container row">
+        <% newList.forEach((country) => { %>
+            <div class="col-3 p-0">
+                <div class="border p-3 mr-3">
+                    <h4>
+                        <%= country.name %>
+                    </h4>
+                    <p>
+                        <%= country.alpha2Code %> -
+                            <%= country.alpha3Code %>
+                    </p>
+                    <% if (country.visited) { %>
+                        <span style="color: green">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <% } else { %>
+                            <span style="color: red">
+                            <i class="fas fa-times"></i>
+                        </span>
+                            <% } %>
+                </div>
+
+            </div>
+            <% }); %>
+    </div>
+
+
+    <%- include('../partials/footer'); %>
